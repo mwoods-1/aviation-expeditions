@@ -50,9 +50,9 @@ export default function Footer() {
             />
             <div className="footer-nav-links">
               <Link href="/tours">Tours</Link>
-              <Link href="/about-sven">About Sven</Link>
+              <Link href="/meet-your-pilot">Meet Your Pilot</Link>
               <Link href="/faq">FAQ</Link>
-              <Link href="/booking">Book Now</Link>
+              <Link href="/inquiry">Inquire Now</Link>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function Footer() {
           <div className="location-block">
             <div className="helicopter-icon">✈️</div>
             <div className="location-text">
-              <p className="location-name">AVIATION EXPEDITIONS - AIRBASE</p>
+              <p className="location-name">AVIATION EXPEDITIONS</p>
               <a href="https://www.google.com/maps/place/Fairbanks+International+Airport" target="_blank" rel="noopener noreferrer" className="location-address">Fairbanks International Airport<br />6450 Airport Way, Fairbanks, AK 99709</a>
             </div>
           </div>

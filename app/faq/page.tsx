@@ -58,7 +58,7 @@ export default function FAQPage() {
 
   return (
     <main>
-      <section style={{ paddingTop: "120px", paddingBottom: "8rem", maxWidth: "1400px", margin: "0 auto", padding: "120px 2rem 8rem" }}>
+      <section style={{ paddingTop: "200px", paddingBottom: "8rem", maxWidth: "1400px", margin: "0 auto", padding: "200px 2rem 8rem" }}>
         <h2 className="section-title" style={{marginBottom: "1rem"}}>Frequently Asked Questions</h2>
         <p className="section-subtitle" style={{marginBottom: "4rem"}}>
           Have questions about your Arctic adventure? Find answers below
@@ -79,7 +79,7 @@ export default function FAQPage() {
                   alignItems: 'center',
                   cursor: 'pointer',
                   color: '#00d4ff',
-                  fontFamily: '"Fraunces", serif',
+                  fontFamily: '"Syne", sans-serif',
                   fontSize: '1.1rem',
                   fontWeight: '600',
                   letterSpacing: '-0.5px',

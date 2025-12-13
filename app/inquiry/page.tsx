@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import DatePicker from "@/components/DatePicker";
 
 export default function BookingPage() {
   const [formData, setFormData] = useState({
@@ -67,7 +68,7 @@ This inquiry was submitted through the Aviation Expeditions booking form.
 
   return (
     <main>
-      <section style={{paddingTop: '120px', paddingBottom: '8rem', maxWidth: '1000px', margin: '0 auto', padding: '120px 2rem 8rem'}}>
+      <section style={{paddingTop: '200px', paddingBottom: '8rem', maxWidth: '1000px', margin: '0 auto', padding: '200px 2rem 8rem'}}>
         <h2 className="section-title" style={{marginBottom: '1rem'}}>Book Your Arctic Adventure</h2>
         <p className="section-subtitle" style={{marginBottom: '4rem'}}>
           Fill out the form below to inquire about your custom flight. Sven will respond within 24 hours.
@@ -202,24 +203,15 @@ This inquiry was submitted through the Aviation Expeditions booking form.
 
           {/* Preferred Date */}
           <div>
-            <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Preferred Date (Approximate)
-            </label>
-            <input
-              type="month"
-              name="preferredDate"
+            <DatePicker
+              label="Preferred Date (Approximate)"
               value={formData.preferredDate}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                background: 'rgba(15, 31, 53, 0.5)',
-                border: '1px solid rgba(0, 212, 255, 0.15)',
-                borderRadius: '6px',
-                color: '#f0f4f8',
-                fontFamily: 'inherit',
-                fontSize: '1rem'
-              }}
+              onChange={(date) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  preferredDate: date,
+                }))
+              }
             />
           </div>
 
@@ -350,7 +342,7 @@ This inquiry was submitted through the Aviation Expeditions booking form.
               📧 Email: <a href="mailto:Svenhaltmann@gmail.com" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>Svenhaltmann@gmail.com</a>
             </li>
             <li>
-              📱 Phone: <strong style={{color: '#f0f4f8'}}>907-355-7088</strong>
+              📱 Phone: <a href="tel:907-355-7088" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>907-355-7088</a>
             </li>
           </ul>
         </div>

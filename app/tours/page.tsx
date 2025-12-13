@@ -70,7 +70,7 @@ export default function ToursPage() {
 
   return (
     <main>
-      <section className="tours" style={{ paddingTop: "120px" }}>
+      <section className="tours" style={{ paddingTop: "200px" }}>
         <h2 className="section-title">2026 Tour Experiences</h2>
         <p className="section-subtitle">
           From scenic flightseeing to remote park expeditions, we offer unmatched access to Alaska's most pristine destinations
@@ -107,30 +107,6 @@ export default function ToursPage() {
         </div>
       </section>
 
-      <section style={{padding: '8rem 2rem', background: 'linear-gradient(135deg, rgba(15, 31, 53, 0.6) 0%, rgba(10, 20, 40, 0.8) 100%)', borderTop: '1px solid rgba(0, 212, 255, 0.15)'}}>
-        <div style={{maxWidth: '1400px', margin: '0 auto'}}>
-          <h2 className="section-title">Booking Your Flight</h2>
-          <p className="section-subtitle" style={{marginBottom: '2rem'}}>
-            Contact Sven directly to discuss your adventure, dates, and custom requirements
-          </p>
-          <div style={{display: 'flex', gap: '2rem', flexWrap: 'wrap'}}>
-            <div style={{flex: '1', minWidth: '250px'}}>
-              <h3 style={{color: '#00d4ff', marginBottom: '1rem', fontSize: '1.3rem'}}>Email</h3>
-              <a href="mailto:Svenhaltmann@gmail.com" style={{color: '#a8b8cc', textDecoration: 'none', fontSize: '1.1rem', fontWeight: '600'}}>
-                Svenhaltmann@gmail.com
-              </a>
-            </div>
-            <div style={{flex: '1', minWidth: '250px'}}>
-              <h3 style={{color: '#00d4ff', marginBottom: '1rem', fontSize: '1.3rem'}}>Phone</h3>
-              <p style={{color: '#a8b8cc', fontSize: '1.1rem', fontWeight: '600'}}>907-355-7088</p>
-            </div>
-            <div style={{flex: '1', minWidth: '250px'}}>
-              <h3 style={{color: '#00d4ff', marginBottom: '1rem', fontSize: '1.3rem'}}>Location</h3>
-              <p style={{color: '#a8b8cc', fontSize: '1.1rem', fontWeight: '600'}}>Fairbanks & Bettles, Alaska</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
     </main>
   );

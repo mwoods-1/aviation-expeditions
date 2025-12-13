@@ -2,47 +2,31 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const rightNavigation = [
     { name: "Tours", href: "/tours" },
-    { name: "About Sven", href: "/about-sven" },
+    { name: "Meet Your Pilot", href: "/meet-your-pilot" },
     { name: "FAQ", href: "/faq" },
   ];
 
-  const bookNowLink = { name: "Book Now", href: "/booking" };
+  const bookNowLink = { name: "Inquire Now", href: "/inquiry" };
 
   return (
-    <header
-      className={isMounted && isScrolled ? "scrolled" : ""}
-    >
+    <header>
+
       <nav>
         <Link href="/" className="logo">
           <Image
             src="/aviation-expeditions-images/Logo_Yellow.png"
             alt="Aviation Expeditions Logo"
-            width={45}
-            height={45}
+            width={110}
+            height={110}
             priority
           />
-          <span style={{ fontFamily: "'Fraunces', serif" }}>Aviation Expeditions</span>
         </Link>
 
         {/* Desktop Navigation */}

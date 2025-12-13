@@ -83,7 +83,7 @@ export default function Home() {
             <a href="/tours" className="cta-button cta-primary">
               <span>Explore Tours</span>
             </a>
-            <a href="/about-sven" className="cta-button cta-secondary">
+            <a href="/meet-your-pilot" className="cta-button cta-secondary">
               <span>Learn More</span>
             </a>
           </div>
@@ -116,7 +116,7 @@ export default function Home() {
                   <span className="passengers">
                     <strong>{tour.passengers}</strong> passengers
                   </span>
-                  <a href="/booking" className="tour-cta">
+                  <a href="/inquiry" className="tour-cta">
                     Inquire
                   </a>
                 </div>
@@ -138,8 +138,8 @@ export default function Home() {
           <h2 className="section-title">Ready to Book Your Arctic Adventure?</h2>
           <p className="section-subtitle">Contact Sven to plan your custom flight experience</p>
           <div className="book-cta">
-            <a href="/booking" className="cta-button cta-primary">
-              <span>Book Now</span>
+            <a href="/inquiry" className="cta-button cta-primary">
+              <span>Inquire Now</span>
             </a>
           </div>
         </div>

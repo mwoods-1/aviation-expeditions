@@ -13,7 +13,7 @@
   body {
     @apply m-0 p-0;
     font-family: 'Syne', sans-serif;
-    background: #0a1428;
+    background: #1a2a47;
     color: #f0f4f8;
     line-height: 1.6;
     overflow-x: hidden;
@@ -64,7 +64,7 @@
   }
 
   .tour-card {
-    @apply bg-gradient-to-br from-brand-card-bg to-brand-card-bg bg-opacity-50 border border-cyan-400 border-opacity-15 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400 hover:border-opacity-100 hover:shadow-2xl hover:shadow-cyan-400/25;
+    @apply bg-gradient-to-br from-brand-card-bg to-brand-card-bg bg-opacity-50 border border-cyan-400 border-opacity-15 rounded-xl overflow-hidden;
   }
 
   .feature-card {
@@ -78,23 +78,15 @@
 
 /* Navigation styles */
 header {
-  position: fixed;
+  padding: 0.6rem 2rem 3rem 2rem;
+  background: transparent !important;
+  border: none;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  z-index: 100;
-  padding: 1.2rem 2rem;
-  transition: all 0.3s ease;
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none;
-}
-
-header.scrolled {
-  background: linear-gradient(180deg, rgba(10, 20, 40, 0.98) 0%, rgba(10, 20, 40, 0.85) 100%) !important;
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  right: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 nav {
@@ -103,8 +95,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  z-index: 2;
   background-color: transparent !important;
 }
 
@@ -122,7 +112,7 @@ nav {
 }
 
 .logo img {
-  height: 45px;
+  height: 110px;
   width: auto;
   filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.2));
 }
@@ -182,7 +172,7 @@ nav a:hover::after {
   background-attachment: fixed;
   overflow: hidden;
   margin-top: 0;
-  padding-top: 80px;
+  padding-top: 200px;
 }
 
 .hero::before {
@@ -262,7 +252,7 @@ nav a:hover::after {
 
 /* Tours Section */
 .tours {
-  padding: 8rem 2rem;
+  padding: 200px 2rem 8rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -433,7 +423,7 @@ nav a:hover::after {
 }
 
 .experience-list li::before {
-  content: '✓';
+  content: '';
   position: absolute;
   left: 0;
   color: #00d4ff;
@@ -567,7 +557,7 @@ nav a:hover::after {
 
 /* Book Now Section */
 .book-now {
-  padding: 6rem 2rem;
+  padding: 200px 2rem 6rem 2rem;
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
