@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   keywords: "aviation, arctic tours, scenic flights, Alaska adventures, flightseeing, Gates of the Arctic, Denali",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", sizes: "256x256" },
     ],
   },
   openGraph: {
