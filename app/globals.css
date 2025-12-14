@@ -79,7 +79,7 @@
 /* Navigation styles */
 header {
   padding: 0.6rem 2rem 0 2rem;
-  background: transparent !important;
+  background: transparent;
   border: none;
   position: absolute;
   top: 0;

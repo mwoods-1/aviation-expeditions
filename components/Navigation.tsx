@@ -7,6 +7,20 @@ import { useState, useEffect } from "react";
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Apply header background when menu is open on mobile
+  useEffect(() => {
+    const header = document.querySelector("header");
+    if (header && typeof window !== "undefined" && window.innerWidth < 768) {
+      if (isMenuOpen) {
+        header.style.backgroundColor = "#0f1f35";
+        header.style.borderBottom = "2px solid #00d4ff";
+      } else {
+        header.style.backgroundColor = "transparent";
+        header.style.borderBottom = "none";
+      }
+    }
+  }, [isMenuOpen]);
+
   const rightNavigation = [
     { name: "Tours", href: "/tours" },
     { name: "Meet Your Pilot", href: "/meet-your-pilot" },
@@ -85,7 +99,7 @@ export default function Navigation() {
         <div
           style={{
             position: "fixed",
-            top: "60px",
+            top: "150px",
             left: "0",
             right: "0",
             width: "100%",
@@ -94,7 +108,7 @@ export default function Navigation() {
             borderBottom: "2px solid #00d4ff",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.9)",
             zIndex: "39",
-            maxHeight: "calc(100vh - 60px)",
+            maxHeight: "calc(100vh - 150px)",
             overflowY: "auto",
             padding: "1.5rem 1rem",
             display: "flex",
