@@ -1011,3 +1011,41 @@ nav a:hover::after {
     align-items: center;
   }
 }
+
+/* 404 Not Found Page */
+.not-found-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a2a47 0%, #2a3f5f 100%);
+}
+
+.not-found-section {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+}
+
+.not-found-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #00d4ff;
+  font-weight: 800;
+}
+
+.not-found-content p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #b0b8c1;
+}
+
+@media (max-width: 768px) {
+  .not-found-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .not-found-content p {
+    font-size: 1rem;
+  }
+}
