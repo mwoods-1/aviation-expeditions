@@ -137,6 +137,13 @@ Before starting work:
 - **Git workflow**: Always commit changes with clear messages
 - **No linting/testing**: Not currently configured in this project
 
+## Git Workflow
+
+- **Claude will create commits** with clear, descriptive messages explaining changes
+- **User will handle pushing to GitHub** - Claude will not push to remote unless explicitly asked
+- User can review commits locally before pushing: `git log` to view, `git push` when ready
+- All commits include generated-by footer crediting Claude Code
+
 ## Deployment
 
 Ready to deploy to Vercel, Netlify, or any static host.

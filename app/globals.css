@@ -64,7 +64,7 @@
   }
 
   .tour-card {
-    @apply bg-gradient-to-br from-brand-card-bg to-brand-card-bg bg-opacity-50 border border-cyan-400 border-opacity-15 rounded-xl overflow-hidden;
+    @apply bg-gradient-to-br from-brand-card-bg to-brand-card-bg bg-opacity-50 border border-cyan-400 border-opacity-15 rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:border-cyan-400 hover:border-opacity-50 hover:shadow-lg hover:shadow-cyan-400/20;
   }
 
   .feature-card {
@@ -174,7 +174,7 @@ nav a:hover::after {
   background-attachment: fixed;
   overflow: hidden;
   margin-top: 0;
-  padding-top: 200px;
+  padding-top: 60px;
 }
 
 .hero::before {
@@ -254,7 +254,7 @@ nav a:hover::after {
 
 /* Tours Section */
 .tours {
-  padding: 200px 2rem 8rem 2rem;
+  padding: 100px 2rem 8rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -268,98 +268,74 @@ nav a:hover::after {
   margin-top: 4rem;
 }
 
-.tour-header {
+.tour-image {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 1.8rem 1.5rem;
-  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  width: 100%;
+  height: 280px;
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
-.tour-header::before {
+.tour-image::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(10, 20, 40, 0.75) 0%, rgba(10, 20, 40, 0.6) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 20, 40, 0.4) 100%);
   pointer-events: none;
-  z-index: 1;
 }
 
-.tour-header h3 {
-  font-size: 1.4rem;
+.tour-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.tour-info h3 {
+  font-size: 1.3rem;
   color: #00d4ff;
-  margin-bottom: 0.3rem;
-  position: relative;
-  z-index: 2;
+  margin: 0 0 1rem 0;
   letter-spacing: -0.5px;
 }
 
-.tour-duration {
-  color: #ffa500;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  position: relative;
-  z-index: 2;
-}
-
-.tour-body {
-  padding: 1.5rem;
-}
-
-.tour-description {
-  color: #a8b8cc;
-  line-height: 1.7;
+.tour-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
   margin-bottom: 1.5rem;
 }
 
-.tour-highlights {
-  list-style: none;
-  margin-bottom: 2rem;
-}
-
-.tour-highlights li {
-  color: #a8b8cc;
-  padding: 0.5rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 0.95rem;
-}
-
-.tour-highlights li::before {
-  content: '→';
-  color: #00d4ff;
-  font-weight: bold;
-}
-
-.tour-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(0, 212, 255, 0.15);
-}
-
-.passengers {
+.passengers-badge {
+  display: inline-block;
   color: #a8b8cc;
   font-size: 0.9rem;
 }
 
-.passengers strong {
+.passengers-badge strong {
   color: #00d4ff;
 }
 
-.tour-cta {
+.passengers-badge::after {
+  content: ' max';
+  font-size: 0.85rem;
+}
+
+.duration-badge {
+  display: inline-block;
+  color: #ffa500;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.info-button {
   background: rgba(0, 212, 255, 0.1);
   color: #00d4ff;
   border: 1px solid rgba(0, 212, 255, 0.3);
@@ -372,11 +348,41 @@ nav a:hover::after {
   text-decoration: none;
   display: inline-block;
   user-select: none;
+  text-align: center;
+  align-self: flex-start;
 }
 
-.tour-cta:hover {
+.info-button:hover {
   background: rgba(0, 212, 255, 0.2);
   border-color: #00d4ff;
+}
+
+/* Tours Page */
+.tour-description {
+  color: #a8b8cc;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.tour-highlights {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.tour-highlights li {
+  color: #a8b8cc;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.tour-highlights li::before {
+  content: '→';
+  color: #00d4ff;
+  font-weight: bold;
 }
 
 /* About Section */
@@ -559,7 +565,7 @@ nav a:hover::after {
 
 /* Book Now Section */
 .book-now {
-  padding: 200px 2rem 6rem 2rem;
+  padding: 100px 2rem 6rem 2rem;
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;

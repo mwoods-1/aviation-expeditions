@@ -16,6 +16,8 @@ export default function BookingPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -25,45 +27,68 @@ export default function BookingPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Create email body
-    const emailBody = `
-Flight Inquiry from Aviation Expeditions Website
+    setIsLoading(true);
+    setSubmissionError(null);
 
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
-Tour Type: ${formData.tourType}
-Preferred Date: ${formData.preferredDate}
-Number of Passengers: ${formData.passengers}
-Flying Experience: ${formData.experience}
-
-Special Requests:
-${formData.specialRequests}
-
----
-This inquiry was submitted through the Aviation Expeditions booking form.
-`.trim();
-
-    const mailtoLink = `mailto:Svenhaltmann@gmail.com?subject=Flight Inquiry - ${formData.name}&body=${encodeURIComponent(emailBody)}`;
-    window.location.href = mailtoLink;
-    setSubmitted(true);
-
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        tourType: "",
-        preferredDate: "",
-        passengers: "1",
-        experience: "",
-        specialRequests: "",
+    try {
+      // Send form data to backend API
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          tourType: formData.tourType,
+          preferredDate: formData.preferredDate,
+          passengers: formData.passengers,
+          experience: formData.experience,
+          specialRequests: formData.specialRequests,
+        }),
       });
-      setSubmitted(false);
-    }, 2000);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          tourType: "",
+          preferredDate: "",
+          passengers: "1",
+          experience: "",
+          specialRequests: "",
+        });
+
+        // Scroll to top to see success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        setTimeout(() => {
+          setSubmitted(false);
+          setSubmissionError(null);
+        }, 3000);
+      } else {
+        setSubmissionError(data.error || "Failed to submit form. Please try again.");
+        console.error("Form submission error:", data);
+
+        // Scroll to top to see error message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch (error) {
+      setSubmissionError("An error occurred. Please check your connection and try again.");
+      console.error("Form submission error:", error);
+
+      // Scroll to top to see error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -71,10 +96,10 @@ This inquiry was submitted through the Aviation Expeditions booking form.
       <section style={{paddingTop: '200px', paddingBottom: '8rem', maxWidth: '1000px', margin: '0 auto', padding: '200px 2rem 8rem'}}>
         <h2 className="section-title" style={{marginBottom: '1rem'}}>Book Your Arctic Adventure</h2>
         <p className="section-subtitle" style={{marginBottom: '4rem'}}>
-          Fill out the form below to inquire about your custom flight. Sven will respond within 24 hours.
+          Fill out the form below to inquire about your flight.
         </p>
 
-        {submitted ? (
+        {submitted && (
           <div style={{
             padding: '2rem',
             background: 'rgba(0, 212, 255, 0.15)',
@@ -84,15 +109,35 @@ This inquiry was submitted through the Aviation Expeditions booking form.
             textAlign: 'center',
             marginBottom: '2rem'
           }}>
-            <h3 style={{marginBottom: '0.5rem', fontSize: '1.3rem'}}>✓ Inquiry Sent!</h3>
+            <h3 style={{marginBottom: '0.5rem', fontSize: '1.3rem'}}>✓ Thank You!</h3>
             <p style={{color: '#a8b8cc', marginBottom: '0.5rem'}}>
-              Your flight inquiry has been sent to Sven. He will review your request and respond within 24 hours.
+              Your inquiry has been received. Sven will get back to you as soon as possible.
             </p>
             <p style={{color: '#a8b8cc', fontSize: '0.9rem'}}>
               Make sure to check your spam folder if you don't hear back soon.
             </p>
           </div>
-        ) : null}
+        )}
+
+        {submissionError && (
+          <div style={{
+            padding: '2rem',
+            background: 'rgba(239, 68, 68, 0.15)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: '8px',
+            color: '#ef4444',
+            textAlign: 'center',
+            marginBottom: '2rem'
+          }}>
+            <h3 style={{marginBottom: '0.5rem', fontSize: '1.3rem'}}>⚠️ Error</h3>
+            <p style={{color: '#fca5a5', marginBottom: '0.5rem'}}>
+              {submissionError}
+            </p>
+            <p style={{color: '#fca5a5', fontSize: '0.9rem'}}>
+              Please check all required fields and try again.
+            </p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={{display: 'grid', gap: '1.5rem'}}>
           {/* Name */}
@@ -298,30 +343,36 @@ This inquiry was submitted through the Aviation Expeditions booking form.
           {/* Submit Button */}
           <button
             type="submit"
+            disabled={isLoading}
             style={{
               padding: '1rem 2rem',
-              background: 'linear-gradient(135deg, #00d4ff 0%, #00a8d4 100%)',
+              background: isLoading ? 'rgba(0, 212, 255, 0.5)' : 'linear-gradient(135deg, #00d4ff 0%, #00a8d4 100%)',
               color: '#0a1428',
               border: '2px solid #00d4ff',
               borderRadius: '8px',
               fontWeight: '700',
               fontSize: '1rem',
-              cursor: 'pointer',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
               textTransform: 'uppercase',
               letterSpacing: '1px',
               transition: 'all 0.3s ease',
-              marginTop: '1rem'
+              marginTop: '1rem',
+              opacity: isLoading ? 0.7 : 1
             }}
             onMouseOver={(e) => {
-              (e.target as HTMLButtonElement).style.transform = 'translateY(-5px)';
-              (e.target as HTMLButtonElement).style.boxShadow = '0 20px 50px rgba(0, 212, 255, 0.4)';
+              if (!isLoading) {
+                (e.target as HTMLButtonElement).style.transform = 'translateY(-5px)';
+                (e.target as HTMLButtonElement).style.boxShadow = '0 20px 50px rgba(0, 212, 255, 0.4)';
+              }
             }}
             onMouseOut={(e) => {
-              (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
-              (e.target as HTMLButtonElement).style.boxShadow = '0 8px 20px rgba(0, 212, 255, 0.2)';
+              if (!isLoading) {
+                (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
+                (e.target as HTMLButtonElement).style.boxShadow = '0 8px 20px rgba(0, 212, 255, 0.2)';
+              }
             }}
           >
-            Submit Inquiry
+            {isLoading ? 'Sending...' : 'Submit Inquiry'}
           </button>
         </form>
 
@@ -339,7 +390,7 @@ This inquiry was submitted through the Aviation Expeditions booking form.
           </p>
           <ul style={{listStyle: 'none', padding: '0'}}>
             <li style={{marginBottom: '0.5rem'}}>
-              📧 Email: <a href="mailto:Svenhaltmann@gmail.com" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>Svenhaltmann@gmail.com</a>
+              📧 Email: <a href="mailto:svenhaltmann@gmail.com" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>svenhaltmann@gmail.com</a>
             </li>
             <li>
               📱 Phone: <a href="tel:907-355-7088" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>907-355-7088</a>

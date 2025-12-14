@@ -1,11 +1,9 @@
-import Image from "next/image";
-
 export default function Home() {
   const tours = [
     {
       id: 1,
-      name: "Gates of the Arctic",
-      duration: "Custom Duration • Alpine Adventure",
+      name: "Gates of the Arctic National Park",
+      duration: "Full Day Tour • Alpine Adventure",
       description: "Remote alpine park with pristine peaks and untouched valleys.",
       image: "/aviation-expeditions-images/Tours/gates-of-the-arctic.jpg",
       highlights: ["National Park access", "Remote landing sites"],
@@ -14,8 +12,8 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Kobuk Valley",
-      duration: "Custom Duration • Remote Explorer",
+      name: "Kobuk Valley National Park",
+      duration: "Full Day Tour • Remote Explorer",
       description: "Vast sand dunes and pristine valleys in a seldom-visited park.",
       image: "/aviation-expeditions-images/Tours/kobuk.jpg",
       highlights: ["Sand dunes & valleys", "Fishing/hunting access"],
@@ -99,27 +97,20 @@ export default function Home() {
           {tours.map((tour) => (
             <div key={tour.id} className="tour-card">
               <div
-                className="tour-header"
+                className="tour-image"
                 style={{ backgroundImage: `url('${tour.image}')` }}
-              >
+              />
+              <div className="tour-info">
                 <h3>{tour.name}</h3>
-                <div className="tour-duration">{tour.duration}</div>
-              </div>
-              <div className="tour-body">
-                <p className="tour-description">{tour.description}</p>
-                <ul className="tour-highlights">
-                  {tour.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-                <div className="tour-footer">
-                  <span className="passengers">
+                <div className="tour-meta">
+                  <span className="passengers-badge">
                     <strong>{tour.passengers}</strong> passengers
                   </span>
-                  <a href="/inquiry" className="tour-cta">
-                    Inquire
-                  </a>
+                  <span className="duration-badge">{tour.duration}</span>
                 </div>
+                <a href="/tours" className="info-button">
+                  More Info
+                </a>
               </div>
             </div>
           ))}

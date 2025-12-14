@@ -2,8 +2,8 @@ export default function ToursPage() {
   const tours = [
     {
       id: 1,
-      name: "Gates of the Arctic",
-      duration: "Custom Duration • Alpine Adventure",
+      name: "Gates of the Arctic National Park",
+      duration: "Full Day Tour • Alpine Adventure",
       description: "Remote alpine park with pristine peaks and untouched valleys.",
       image: "/aviation-expeditions-images/Tours/gates-of-the-arctic.jpg",
       highlights: ["National Park access", "Remote landing sites"],
@@ -13,8 +13,8 @@ export default function ToursPage() {
     },
     {
       id: 2,
-      name: "Kobuk Valley",
-      duration: "Custom Duration • Remote Explorer",
+      name: "Kobuk Valley National Park",
+      duration: "Full Day Tour • Remote Explorer",
       description: "Vast sand dunes and pristine valleys in a seldom-visited park.",
       image: "/aviation-expeditions-images/Tours/kobuk.jpg",
       highlights: ["Sand dunes & valleys", "Fishing/hunting access"],
@@ -80,27 +80,28 @@ export default function ToursPage() {
           {tours.map((tour) => (
             <div key={tour.id} className="tour-card">
               <div
-                className="tour-header"
+                className="tour-image"
                 style={{ backgroundImage: `url('${tour.image}')` }}
-              >
-                <h3>{tour.name}</h3>
-                <div className="tour-duration">{tour.duration}</div>
-              </div>
-              <div className="tour-body">
-                <p className="tour-description">{tour.fullDescription}</p>
-                <ul className="tour-highlights">
-                  {tour.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-                <div className="tour-footer">
-                  <span className="passengers">
-                    <strong>{tour.passengers}</strong> passengers
-                  </span>
-                  <a href="mailto:Svenhaltmann@gmail.com" className="tour-cta">
-                    Inquire
-                  </a>
+              />
+              <div className="tour-info">
+                <div>
+                  <h3>{tour.name}</h3>
+                  <div className="tour-meta">
+                    <span className="passengers-badge">
+                      <strong>{tour.passengers}</strong> passengers
+                    </span>
+                    <span className="duration-badge">{tour.duration}</span>
+                  </div>
+                  <p className="tour-description">{tour.fullDescription}</p>
+                  <ul className="tour-highlights">
+                    {tour.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
                 </div>
+                <a href="mailto:svenhaltmann@gmail.com" className="info-button">
+                  Inquire
+                </a>
               </div>
             </div>
           ))}
