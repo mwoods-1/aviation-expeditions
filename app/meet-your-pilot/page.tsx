@@ -373,7 +373,6 @@ export default function AboutSvenPage() {
               padding: '2rem',
               borderRadius: '14px',
               border: '1px solid rgba(0, 212, 255, 0.15)',
-              borderLeft: '3px solid #00d4ff',
             }}>
               <p style={{
                 color: '#a8b8cc',
