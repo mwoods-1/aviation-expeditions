@@ -127,7 +127,7 @@ export default function Home() {
       >
         <div className="book-container">
           <h2 className="section-title">Ready to Book Your Arctic Adventure?</h2>
-          <p className="section-subtitle">Contact Sven to plan your custom flight experience</p>
+          <p className="section-subtitle" style={{ marginTop: "1.5rem" }}>Contact Sven to plan your custom flight experience</p>
           <div className="book-cta">
             <a href="/inquiry" className="cta-button cta-primary">
               <span>Inquire Now</span>

@@ -125,7 +125,11 @@ export default function FAQPage() {
             <a href="mailto:svenhaltmann@gmail.com" style={{color: '#00d4ff', textDecoration: 'none', fontWeight: '600'}}>
               svenhaltmann@gmail.com
             </a>{" "}
-            or call <strong style={{color: '#f0f4f8'}}>907-355-7088</strong>. He's always happy to answer questions and discuss your custom adventure.
+            or call{" "}
+            <a href="tel:907-355-7088" style={{color: '#f0f4f8', textDecoration: 'none', fontWeight: '600'}}>
+              907-355-7088
+            </a>
+            . He's always happy to answer questions and discuss your custom adventure.
           </p>
         </div>
       </section>
