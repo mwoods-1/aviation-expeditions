@@ -265,7 +265,7 @@ nav a:hover::after {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 2.5rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 
 .tour-image {
