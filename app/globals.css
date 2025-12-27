@@ -261,11 +261,15 @@ nav a:hover::after {
   z-index: 2;
 }
 
+.tours .section-subtitle {
+  margin-bottom: 4rem;
+}
+
 .tours-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 2.5rem;
-  margin-top: 6rem;
+  margin-top: 0;
 }
 
 .tour-image {
