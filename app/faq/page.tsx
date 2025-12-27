@@ -12,7 +12,7 @@ export default function FAQPage() {
     },
     {
       question: "What is the best time of year to fly?",
-      answer: "Alaska offers different experiences throughout the year. Summer (June-August) offers 24-hour daylight, while fall (September-October) provides stunning colors. Winter (December-February) offers northern lights opportunities. Spring (March-May) combines good conditions with fewer crowds. All seasons are available weather permitting.",
+      answer: "Alaska offers different experiences throughout the year. Summer (June - August) offers 24 hour daylight, while fall (September) provides stunning colors. Winter (February - March) offers Wildlife opportunities for flights conducted from Bettles. All seasons are available weather permitting.",
     },
     {
       question: "How many passengers can fit in the aircraft?",

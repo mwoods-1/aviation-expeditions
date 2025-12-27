@@ -2,26 +2,16 @@ export default function Home() {
   const tours = [
     {
       id: 1,
-      name: "Gates of the Arctic National Park",
-      duration: "Full Day Tour • Alpine Adventure",
-      description: "Remote alpine park with pristine peaks and untouched valleys.",
+      name: "Gates of the Arctic / Kobuk Valley Combo",
+      duration: "Full Day Tour • Arctic Explorer",
+      description: "Experience two pristine national parks in one adventure—remote alpine peaks and vast sand dunes.",
       image: "/aviation-expeditions-images/Tours/gates-of-the-arctic.jpg",
-      highlights: ["National Park access", "Remote landing sites"],
+      highlights: ["National Park access", "Alpine & dunes"],
       passengers: 3,
       icon: "🏔️",
     },
     {
       id: 2,
-      name: "Kobuk Valley National Park",
-      duration: "Full Day Tour • Remote Explorer",
-      description: "Vast sand dunes and pristine valleys in a seldom-visited park.",
-      image: "/aviation-expeditions-images/Tours/kobuk.jpg",
-      highlights: ["Sand dunes & valleys", "Fishing/hunting access"],
-      passengers: 3,
-      icon: "🗻",
-    },
-    {
-      id: 3,
       name: "Arctic Circle Flight",
       duration: "2-3 Hours • Bucket List",
       description: "Cross the Arctic Circle and earn an official certificate.",
@@ -29,6 +19,16 @@ export default function Home() {
       highlights: ["Arctic Circle crossing", "Official certificate"],
       passengers: 3,
       icon: "🎯",
+    },
+    {
+      id: 3,
+      name: "Remote Support / Logistics",
+      duration: "Custom Duration • Expedition Support",
+      description: "Professional aerial support for remote properties, mining operations, and wilderness access. Full logistics and landing coordination.",
+      image: "/aviation-expeditions-images/Tours/custom-trips.jpg",
+      highlights: ["Remote property access", "Professional logistics"],
+      passengers: 3,
+      icon: "🚁",
     },
     {
       id: 4,
@@ -90,7 +90,7 @@ export default function Home() {
 
       {/* Tours Section */}
       <section className="tours">
-        <h2 className="section-title">2026 Tour Experiences</h2>
+        <h2 className="section-title">2026 Flight/Tour Experiences</h2>
         <p className="section-subtitle">From scenic flightseeing to remote park expeditions...</p>
 
         <div className="tours-grid">

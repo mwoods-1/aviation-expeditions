@@ -80,8 +80,8 @@ export default function Footer() {
           <div className="location-block">
             <div className="helicopter-icon">✈️</div>
             <div className="location-text">
-              <p className="location-name">AVIATION EXPEDITIONS</p>
-              <a href="https://www.google.com/maps/place/Fairbanks+International+Airport" target="_blank" rel="noopener noreferrer" className="location-address">Fairbanks International Airport<br />6450 Airport Way, Fairbanks, AK 99709</a>
+              <p className="location-name">AVIATION EXPEDITIONS LLC</p>
+              <a href="https://www.google.com/maps/search/3505+Davis+Road+Fairbanks+AK" target="_blank" rel="noopener noreferrer" className="location-address">3505 Davis Road<br />Fairbanks, AK 99709</a>
             </div>
           </div>
         </div>
