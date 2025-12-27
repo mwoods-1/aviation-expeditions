@@ -314,7 +314,6 @@ export default function AboutSvenPage() {
               marginBottom: '0.75rem',
               letterSpacing: '-0.5px',
               margin: 0,
-              marginBottom: '0.75rem',
             }}>
               1977 Cessna A185F
             </h3>
