@@ -60,7 +60,7 @@
   }
 
   .section-subtitle {
-    @apply text-lg text-brand-text-muted max-w-2xl;
+    @apply text-lg text-brand-text-muted max-w-2xl mb-8;
   }
 
   .tour-card {
