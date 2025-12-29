@@ -113,7 +113,7 @@ export default function Home() {
                   </span>
                   <span className="duration-badge">{tour.duration}</span>
                 </div>
-                <a href="/tours" className="info-button">
+                <a href={`/tours#tour-${tour.id}`} className="info-button">
                   More Info
                 </a>
               </div>

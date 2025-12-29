@@ -78,7 +78,7 @@ export default function ToursPage() {
 
         <div className="tours-grid">
           {tours.map((tour) => (
-            <div key={tour.id} className="tour-card">
+            <div key={tour.id} id={`tour-${tour.id}`} className="tour-card">
               <div
                 className="tour-image"
                 style={{ backgroundImage: `url('${tour.image}')` }}
