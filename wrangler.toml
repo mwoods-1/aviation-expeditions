@@ -1,20 +1,2 @@
-name = "aviation-expeditions"
-type = "javascript"
-account_id = ""
-workers_dev = true
-route = ""
-zone_id = ""
-
-[build]
-command = "npm run build"
-cwd = "./"
-watch_paths = ["src/**/*.ts", "src/**/*.tsx", "app/**/*.ts", "app/**/*.tsx"]
-
-[build.upload]
-format = "service-worker"
-
-[env.production]
-vars = { ENVIRONMENT = "production" }
-
-[site]
-bucket = "out"
+# This file is not needed for Cloudflare Pages
+# Keeping minimal config in case it's referenced elsewhere
