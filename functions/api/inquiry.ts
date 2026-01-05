@@ -57,32 +57,36 @@ Reply directly to this email to respond to ${name} at ${email}
     // Get contact email from environment or use default
     const CONTACT_EMAIL = context.env.CONTACT_EMAIL || 'inquiries@aviation-expeditions.com';
 
-    // Send email using Cloudflare Workers Email
-    const response = await context.env.send_email.post({
-      personalizations: [
+    // Send email using Cloudflare Email API
+    try {
+      const emailResponse = await context.env.send_email.post(
         {
           to: [{ email: CONTACT_EMAIL }],
-          reply_to: { email: email, name: name }
+          from: {
+            name: 'Aviation Expeditions',
+            email: 'noreply@aviation-expeditions.com'
+          },
+          subject: `New Flight Inquiry: ${tourLabel}`,
+          text: emailBody
         }
-      ],
-      from: {
-        email: 'noreply@aviation-expeditions.com',
-        name: 'Aviation Expeditions'
-      },
-      subject: `New Flight Inquiry: ${tourLabel}`,
-      content: [
-        {
-          type: 'text/plain',
-          value: emailBody
-        }
-      ]
-    });
+      );
 
-    if (response.status >= 400) {
-      console.error('Email sending error:', response);
+      if (!emailResponse || emailResponse.error) {
+        console.error('Email API error:', emailResponse);
+        return new Response(
+          JSON.stringify({
+            error: 'Failed to send email. Please try again or contact us directly.'
+          }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+    } catch (emailError) {
+      console.error('Email sending exception:', emailError);
       return new Response(
         JSON.stringify({
-          error: 'Failed to send email. Please try again or contact us directly.'
+          error: 'Email service temporarily unavailable. Please try again.'
         }), {
           status: 500,
           headers: { 'Content-Type': 'application/json' },
