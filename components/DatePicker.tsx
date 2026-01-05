@@ -43,6 +43,14 @@ export default function DatePicker({ value, onChange, label }: DatePickerProps) 
   // Handle date selection
   const handleDateSelect = (day: number) => {
     const selectedDate = new Date(displayYear, displayMonth, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Don't allow selecting past dates
+    if (selectedDate < today) {
+      return;
+    }
+
     onChange(formatDateToString(selectedDate));
     setShowCalendar(false);
   };
@@ -350,11 +358,17 @@ export default function DatePicker({ value, onChange, label }: DatePickerProps) 
                 displayMonth === selectedDate.getMonth() &&
                 displayYear === selectedDate.getFullYear();
 
+              // Check if date is in the past
+              const dateToCheck = new Date(displayYear, displayMonth, dayObj.day);
+              const todayCheck = new Date();
+              todayCheck.setHours(0, 0, 0, 0);
+              const isPast = dayObj.isCurrentMonth && dateToCheck < todayCheck;
+
               return (
                 <button
                   key={index}
                   onClick={() =>
-                    dayObj.isCurrentMonth && handleDateSelect(dayObj.day)
+                    dayObj.isCurrentMonth && !isPast && handleDateSelect(dayObj.day)
                   }
                   style={{
                     padding: "0.5rem 0",
@@ -362,32 +376,39 @@ export default function DatePicker({ value, onChange, label }: DatePickerProps) 
                       ? "#00d4ff"
                       : isToday
                         ? "rgba(0, 212, 255, 0.15)"
-                        : dayObj.isCurrentMonth
-                          ? "rgba(255, 255, 255, 0.02)"
-                          : "transparent",
+                        : isPast
+                          ? "rgba(200, 0, 0, 0.05)"
+                          : dayObj.isCurrentMonth
+                            ? "rgba(255, 255, 255, 0.02)"
+                            : "transparent",
                     border: isToday
                       ? "1px solid #ffa500"
-                      : "1px solid transparent",
+                      : isPast
+                        ? "1px solid rgba(200, 0, 0, 0.2)"
+                        : "1px solid transparent",
                     borderRadius: "4px",
                     color: isSelected
                       ? "#0a1428"
-                      : dayObj.isCurrentMonth
-                        ? "#f0f4f8"
-                        : "#4a5f7f",
-                    cursor: dayObj.isCurrentMonth ? "pointer" : "default",
+                      : isPast
+                        ? "#8a4f5f"
+                        : dayObj.isCurrentMonth
+                          ? "#f0f4f8"
+                          : "#4a5f7f",
+                    cursor: dayObj.isCurrentMonth && !isPast ? "pointer" : "not-allowed",
                     fontSize: "0.9rem",
                     fontWeight: dayObj.isCurrentMonth ? "500" : "400",
                     transition: "all 0.15s ease",
+                    opacity: isPast ? 0.5 : 1,
                   }}
-                  disabled={!dayObj.isCurrentMonth}
+                  disabled={!dayObj.isCurrentMonth || isPast}
                   onMouseEnter={(e) => {
-                    if (dayObj.isCurrentMonth && !isSelected) {
+                    if (dayObj.isCurrentMonth && !isPast && !isSelected) {
                       (e.currentTarget as HTMLElement).style.background =
                         "rgba(0, 212, 255, 0.2)";
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (dayObj.isCurrentMonth && !isSelected) {
+                    if (dayObj.isCurrentMonth && !isPast && !isSelected) {
                       (e.currentTarget as HTMLElement).style.background =
                         "rgba(255, 255, 255, 0.02)";
                     }
