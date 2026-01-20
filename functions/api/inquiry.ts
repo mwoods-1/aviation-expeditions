@@ -1,5 +1,7 @@
 // Cloudflare Pages Function for flight inquiry form
-// Uses native Cloudflare Email Routing
+// Uses AWS SES for email delivery
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+
 export async function onRequestPost(context: any) {
   try {
     const body = await context.request.json();
@@ -33,8 +35,10 @@ export async function onRequestPost(context: any) {
       });
     }
 
-    // Get contact email from environment or use default
+    // Get configuration from environment variables
     const CONTACT_EMAIL = context.env.CONTACT_EMAIL || 'mark99woods@gmail.com';
+    const FROM_EMAIL = context.env.FROM_EMAIL || context.env.CONTACT_EMAIL || 'mark99woods@gmail.com';
+    const AWS_REGION = context.env.AWS_REGION || 'us-east-1';
 
     // Create email body
     const emailBody = `
@@ -57,36 +61,63 @@ This email was sent from the flight inquiry form at aviation-expeditions.com
 Reply directly to this email to respond to ${name} at ${email}
     `.trim();
 
-    // Send email via Cloudflare Email Worker
+    // Send email via AWS SES
     try {
-      const workerUrl = 'https://email-forwarder.mark99woods.workers.dev';
+      // Check for required environment variables
+      if (!context.env.AWS_ACCESS_KEY_ID || !context.env.AWS_SECRET_ACCESS_KEY) {
+        console.error('ERROR: AWS credentials not configured in environment variables');
+        console.error('Missing:', {
+          hasAccessKey: !!context.env.AWS_ACCESS_KEY_ID,
+          hasSecretKey: !!context.env.AWS_SECRET_ACCESS_KEY,
+        });
+        throw new Error('AWS credentials not configured');
+      }
 
-      const emailResponse = await fetch(workerUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      console.log('Initializing SES client with region:', AWS_REGION);
+      console.log('Sending from:', FROM_EMAIL, 'to:', CONTACT_EMAIL);
+
+      // Initialize SES client with credentials from environment
+      const sesClient = new SESClient({
+        region: AWS_REGION,
+        credentials: {
+          accessKeyId: context.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: context.env.AWS_SECRET_ACCESS_KEY,
         },
-        body: JSON.stringify({
-          to: CONTACT_EMAIL,
-          from: 'noreply@aviation-expeditions.com',
-          replyTo: email,
-          subject: `New Flight Inquiry: ${tourLabel}`,
-          text: emailBody,
-        }),
       });
 
-      if (!emailResponse.ok) {
-        console.error('Email worker error:', await emailResponse.text());
-        // Log but don't fail the form submission
-      } else {
-        console.log('Email sent successfully via worker');
-      }
-    } catch (emailError) {
-      console.error('Email sending error:', emailError);
+      const command = new SendEmailCommand({
+        Source: FROM_EMAIL,
+        Destination: {
+          ToAddresses: [CONTACT_EMAIL],
+        },
+        Message: {
+          Subject: {
+            Data: `New Flight Inquiry: ${tourLabel}`,
+            Charset: 'UTF-8',
+          },
+          Body: {
+            Text: {
+              Data: emailBody,
+              Charset: 'UTF-8',
+            },
+          },
+        },
+        ReplyToAddresses: [email],
+      });
+
+      await sesClient.send(command);
+      console.log('✅ Email sent successfully via AWS SES');
+    } catch (emailError: any) {
+      console.error('❌ AWS SES ERROR:', {
+        message: emailError.message,
+        code: emailError.code || emailError.name,
+        stack: emailError.stack,
+      });
       // Continue anyway - form submission still succeeds
+      // Note: In production, you may want to fail the request here
     }
 
-    // Also log to Cloudflare analytics
+    // Log inquiry details
     console.log('=== NEW FLIGHT INQUIRY ===');
     console.log('Name:', name);
     console.log('Email:', email);

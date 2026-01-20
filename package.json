@@ -10,6 +10,7 @@
     "deploy": "echo 'Deployed successfully'"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.971.0",
     "embla-carousel-react": "^8.6.0",
     "mapbox-gl": "^3.17.0",
     "next": "^16.0.10",
