@@ -1,5 +1,5 @@
 // Cloudflare Pages Function for flight inquiry form
-// Uses Cloudflare Email API (free)
+// Uses native Cloudflare Email Routing
 export async function onRequestPost(context: any) {
   try {
     const body = await context.request.json();
@@ -33,6 +33,9 @@ export async function onRequestPost(context: any) {
       });
     }
 
+    // Get contact email from environment or use default
+    const CONTACT_EMAIL = context.env.CONTACT_EMAIL || 'inquiries@aviation-expeditions.com';
+
     // Create email body
     const emailBody = `
 New Flight Inquiry from Aviation Expeditions Website
@@ -50,16 +53,13 @@ Special Requests:
 ${specialRequests || 'None'}
 
 ---
-This email was sent from the flight inquiry form at aviationexpeditions.com
+This email was sent from the flight inquiry form at aviation-expeditions.com
 Reply directly to this email to respond to ${name} at ${email}
     `.trim();
 
-    // Get contact email from environment or use default
-    const CONTACT_EMAIL = context.env.CONTACT_EMAIL || 'inquiries@aviation-expeditions.com';
-    const SENDER_EMAIL = context.env.SENDER_EMAIL || 'noreply@aviation-expeditions.com';
-
-    // Send email using Cloudflare Mailchannels API
     try {
+      // Send email using Mailchannels (Cloudflare's email partner)
+      // Requires _mailchannels DNS TXT record for domain lockdown
       const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
         method: 'POST',
         headers: {
@@ -68,36 +68,34 @@ Reply directly to this email to respond to ${name} at ${email}
         body: JSON.stringify({
           personalizations: [
             {
-              to: [{ email: CONTACT_EMAIL }],
+              to: [{ email: CONTACT_EMAIL, name: 'Aviation Expeditions' }],
             },
           ],
           from: {
-            email: SENDER_EMAIL,
-            name: 'Aviation Expeditions',
+            email: 'noreply@aviation-expeditions.com',
+            name: 'Aviation Expeditions Website',
           },
-          reply_to: email,
+          reply_to: {
+            email: email,
+            name: name,
+          },
           subject: `New Flight Inquiry: ${tourLabel}`,
-          text: emailBody,
+          content: [
+            {
+              type: 'text/plain',
+              value: emailBody,
+            },
+          ],
         }),
       });
 
       if (!response.ok) {
-        const errorData = await response.text();
-        console.error('Mailchannels error status:', response.status);
-        console.error('Mailchannels error response:', errorData);
-        return new Response(
-          JSON.stringify({
-            error: 'Email service error',
-            details: errorData,
-            status: response.status
-          }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
+        const errorText = await response.text();
+        console.error('Mailchannels error:', response.status, errorText);
+        throw new Error(`Mailchannels API error: ${response.status}`);
       }
 
-      console.log('Email sent successfully via Mailchannels');
+      console.log('Email sent successfully');
     } catch (emailError) {
       console.error('Email sending error:', emailError);
       return new Response(
