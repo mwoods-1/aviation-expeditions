@@ -88,8 +88,18 @@ Reply directly to this email to respond to ${name} at ${email}
 
       if (!response.ok) {
         const errorData = await response.text();
-        console.error('Mailchannels error:', errorData);
-        throw new Error(`Mailchannels returned ${response.status}`);
+        console.error('Mailchannels error status:', response.status);
+        console.error('Mailchannels error response:', errorData);
+        return new Response(
+          JSON.stringify({
+            error: 'Email service error',
+            details: errorData,
+            status: response.status
+          }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
       }
 
       console.log('Email sent successfully via Mailchannels');
@@ -97,7 +107,8 @@ Reply directly to this email to respond to ${name} at ${email}
       console.error('Email sending error:', emailError);
       return new Response(
         JSON.stringify({
-          error: 'Email service temporarily unavailable. Please try again.'
+          error: 'Email service error',
+          details: emailError instanceof Error ? emailError.message : 'Unknown error'
         }), {
           status: 500,
           headers: { 'Content-Type': 'application/json' },
