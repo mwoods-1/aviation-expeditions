@@ -32,6 +32,14 @@ export default function BookingPage() {
     setIsLoading(true);
     setSubmissionError(null);
 
+    // Validate required date field
+    if (!formData.preferredDate) {
+      setSubmissionError("Please select a preferred date for your flight.");
+      setIsLoading(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     try {
       // Send form data to backend API
       const response = await fetch("/api/inquiry", {
@@ -90,8 +98,11 @@ export default function BookingPage() {
     <main>
       <section style={{paddingTop: '200px', paddingBottom: '8rem', maxWidth: '1000px', margin: '0 auto', padding: '200px 2rem 8rem'}}>
         <h2 className="section-title" style={{marginBottom: '1rem'}}>Book Your Arctic Adventure</h2>
-        <p className="section-subtitle" style={{marginBottom: '4rem'}}>
+        <p className="section-subtitle" style={{marginBottom: '2rem'}}>
           Fill out the form below to inquire about your flight.
+        </p>
+        <p style={{color: '#ef4444', fontSize: '0.9rem', marginBottom: '2rem'}}>
+          <span style={{color: '#ef4444'}}>*</span> Required fields
         </p>
 
         {submitted && (
@@ -138,7 +149,7 @@ export default function BookingPage() {
           {/* Name */}
           <div>
             <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Full Name *
+              Full Name <span style={{color: '#ef4444'}}>*</span>
             </label>
             <input
               type="text"
@@ -163,7 +174,7 @@ export default function BookingPage() {
           {/* Email */}
           <div>
             <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Email Address *
+              Email Address <span style={{color: '#ef4444'}}>*</span>
             </label>
             <input
               type="email"
@@ -188,7 +199,7 @@ export default function BookingPage() {
           {/* Phone */}
           <div>
             <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Phone Number *
+              Phone Number <span style={{color: '#ef4444'}}>*</span>
             </label>
             <input
               type="tel"
@@ -213,7 +224,7 @@ export default function BookingPage() {
           {/* Tour Type */}
           <div>
             <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Tour Type *
+              Tour Type <span style={{color: '#ef4444'}}>*</span>
             </label>
             <select
               name="tourType"
@@ -252,13 +263,14 @@ export default function BookingPage() {
                   preferredDate: date,
                 }))
               }
+              required
             />
           </div>
 
           {/* Passengers */}
           <div>
             <label style={{display: 'block', color: '#00d4ff', marginBottom: '0.5rem', fontWeight: '600'}}>
-              Number of Passengers *
+              Number of Passengers <span style={{color: '#ef4444'}}>*</span>
             </label>
             <select
               name="passengers"

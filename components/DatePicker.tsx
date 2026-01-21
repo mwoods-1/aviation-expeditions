@@ -6,9 +6,10 @@ interface DatePickerProps {
   value: string;
   onChange: (date: string) => void;
   label?: string;
+  required?: boolean;
 }
 
-export default function DatePicker({ value, onChange, label }: DatePickerProps) {
+export default function DatePicker({ value, onChange, label, required }: DatePickerProps) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [displayMonth, setDisplayMonth] = useState(new Date().getMonth());
   const [displayYear, setDisplayYear] = useState(new Date().getFullYear());
@@ -196,7 +197,7 @@ export default function DatePicker({ value, onChange, label }: DatePickerProps) 
             fontWeight: "600",
           }}
         >
-          {label}
+          {label} {required && <span style={{ color: "#ef4444" }}>*</span>}
         </label>
       )}
 
