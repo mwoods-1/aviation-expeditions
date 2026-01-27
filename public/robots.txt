@@ -1,0 +1,6 @@
+# Allow all crawlers to index the site
+User-agent: *
+Allow: /
+
+# Specify sitemap location
+Sitemap: https://aviation-expeditions.com/sitemap.xml

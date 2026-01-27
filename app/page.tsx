@@ -89,7 +89,7 @@ export default function Home() {
               <span>Explore Tours</span>
             </a>
             <a href="/meet-your-pilot" className="cta-button cta-secondary">
-              <span>Learn More</span>
+              <span>Meet the Pilot</span>
             </a>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function Home() {
                   <span className="duration-badge">{tour.duration}</span>
                 </div>
                 <a href={`/tours#tour-${tour.id}`} className="info-button">
-                  More Info
+                  Learn More
                 </a>
               </div>
             </div>
